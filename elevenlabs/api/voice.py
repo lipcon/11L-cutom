@@ -175,8 +175,7 @@ class Voice(API):
         if voice_clone:
             clone_data = voice_clone.model_dump()
             clone_data["labels"] = str(clone_data.pop("labels"))
-            del clone_data["files"]
-            files = clone_data.pop("_files_tuple")
+            files = voice_clone.files_tuple
 
         if data or files:
             API.post(url, data=data, files=files)
@@ -204,3 +203,5 @@ class Voices(Listable, API):
     @property
     def items(self):
         return self.voices
+
+
